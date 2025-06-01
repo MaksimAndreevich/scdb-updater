@@ -5,11 +5,12 @@ import (
 	"io"
 	"os"
 
-	"gitlab.com/scdb/updater/utils"
+	logger "gitlab.com/scdb/core/logger"
+	"gitlab.com/scdb/core/models"
 )
 
 func GetDataParsedXML() models.OpenData {
-	filePath := utils.GetXMLFilePath()
+	filePath := GetXMLFilePath()
 
 	xmlFile, err := os.Open(filePath)
 

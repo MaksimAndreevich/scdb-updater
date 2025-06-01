@@ -3,10 +3,10 @@ package internal
 import (
 	"fmt"
 	"path/filepath"
-	"scdb/internal/logger"
 	"strings"
 
 	"github.com/vinay03/chalk"
+	logger "gitlab.com/scdb/core/logger"
 )
 
 func GetXMLFilePath() string {

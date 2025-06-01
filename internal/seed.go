@@ -1,19 +1,20 @@
 package internal
 
 import (
-	"scdb/internal/config"
-	"scdb/internal/logger"
-	"scdb/internal/utils"
-	"scdb/internal/xmlParser"
 	"time"
+
+	"gitlab.com/scdb/core/config"
+
+	logger "gitlab.com/scdb/core/logger"
+	database "gitlab.com/scdb/database/services"
 )
 
 func Seed() {
 	start := time.Now()
-	data := xmlParser.GetParsedXML()
+	data := GetDataParsedXML()
 
 	config.LoadConfig()
-	db, _ := Connect()
+	db, _ := database.Connect()
 	// insertOrganisatingQuery := utils.LoadSQLFile("internal/database/sql/insert/educationOrganisation.sql")
 
 	// Начинаем транзакцию — все последующие Exec будут частью одной атомарной операции
@@ -30,7 +31,20 @@ func Seed() {
 		}
 	}()
 
-	insertQuery := utils.LoadSQLFile("internal/database/sql/insert/educationOrganisation.sql")
+	insertQuery := `INSERT INTO education_organizations (
+			id, full_name, short_name, head_edu_org_id, is_branch,
+			post_address, phone, fax, email, web_site,
+			ogrn, inn, kpp, head_post, head_name,
+			form_name, kind_name, type_name, region_name,
+			federal_district_short_name, federal_district_name
+		) VALUES (
+			$1, $2, $3, $4, $5,
+			$6, $7, $8, $9, $10,
+			$11, $12, $13, $14, $15,
+			$16, $17, $18, $19,
+			$20, $21
+		) ON CONFLICT (id) DO NOTHING;
+`
 	// Подготавливаем запрос один раз — база его распарсит и создаст план выполнения
 	stmt, err := tx.Prepare(insertQuery)
 
