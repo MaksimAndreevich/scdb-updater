@@ -3,8 +3,8 @@ package services
 import (
 	"time"
 
-	database "gitlab.com/scdb/database/services"
 	"gitlab.com/scdb/updater/internal/config"
+	"gitlab.com/scdb/updater/internal/database"
 	"gitlab.com/scdb/updater/internal/logger"
 )
 

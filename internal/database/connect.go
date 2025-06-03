@@ -5,8 +5,8 @@ import (
 	"fmt"
 
 	_ "github.com/lib/pq"
-	"gitlab.com/scdb/core/logger"
 	"gitlab.com/scdb/updater/internal/config"
+	"gitlab.com/scdb/updater/internal/logger"
 )
 
 func Connect() (*sql.DB, error) {
