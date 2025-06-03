@@ -1,7 +1,9 @@
 package main
 
-import "gitlab.com/scdb/updater/internal"
+import (
+	"gitlab.com/scdb/updater/internal/services"
+)
 
 func main() {
-	internal.SeedOrganisations()
+	services.SeedOrganisations()
 }

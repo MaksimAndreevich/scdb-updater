@@ -1,12 +1,11 @@
-package internal
+package services
 
 import (
 	"time"
 
-	"gitlab.com/scdb/core/config"
-
-	logger "gitlab.com/scdb/core/logger"
 	database "gitlab.com/scdb/database/services"
+	"gitlab.com/scdb/updater/internal/config"
+	"gitlab.com/scdb/updater/internal/logger"
 )
 
 const InsertQuery = `INSERT INTO education_organizations (

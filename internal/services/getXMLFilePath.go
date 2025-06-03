@@ -1,4 +1,4 @@
-package internal
+package services
 
 import (
 	"fmt"
@@ -6,7 +6,7 @@ import (
 	"strings"
 
 	"github.com/vinay03/chalk"
-	logger "gitlab.com/scdb/core/logger"
+	"gitlab.com/scdb/updater/internal/logger"
 )
 
 func GetXMLFilePath() string {

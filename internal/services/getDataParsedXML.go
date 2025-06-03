@@ -1,12 +1,12 @@
-package internal
+package services
 
 import (
 	"encoding/xml"
 	"io"
 	"os"
 
-	logger "gitlab.com/scdb/core/logger"
-	"gitlab.com/scdb/core/models"
+	"gitlab.com/scdb/updater/internal/logger"
+	"gitlab.com/scdb/updater/internal/models"
 )
 
 func GetDataParsedXML() models.OpenData {
