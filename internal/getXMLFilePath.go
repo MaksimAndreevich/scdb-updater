@@ -13,7 +13,7 @@ func GetXMLFilePath() string {
 	var filePath string
 
 	for {
-		fmt.Println(chalk.Black().BgBlue("Введите путь к файлу XML: "))
+		logger.Info("Введите путь к файлу XML: ")
 		n, err := fmt.Scanf("%s", &filePath)
 
 		if err != nil || n != 1 {

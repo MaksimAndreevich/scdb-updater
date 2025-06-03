@@ -9,13 +9,27 @@ import (
 	database "gitlab.com/scdb/database/services"
 )
 
-func Seed() {
+const InsertQuery = `INSERT INTO education_organizations (
+			id, full_name, short_name, head_edu_org_id, is_branch,
+			post_address, phone, fax, email, web_site,
+			ogrn, inn, kpp, head_post, head_name,
+			form_name, kind_name, type_name, region_name,
+			federal_district_short_name, federal_district_name
+		) VALUES (
+			$1, $2, $3, $4, $5,
+			$6, $7, $8, $9, $10,
+			$11, $12, $13, $14, $15,
+			$16, $17, $18, $19,
+			$20, $21
+		) ON CONFLICT (id) DO NOTHING;
+`
+
+func SeedOrganisations() {
 	start := time.Now()
 	data := GetDataParsedXML()
 
 	config.LoadConfig()
 	db, _ := database.Connect()
-	// insertOrganisatingQuery := utils.LoadSQLFile("internal/database/sql/insert/educationOrganisation.sql")
 
 	// Начинаем транзакцию — все последующие Exec будут частью одной атомарной операции
 	tx, err := db.Begin()
@@ -31,22 +45,8 @@ func Seed() {
 		}
 	}()
 
-	insertQuery := `INSERT INTO education_organizations (
-			id, full_name, short_name, head_edu_org_id, is_branch,
-			post_address, phone, fax, email, web_site,
-			ogrn, inn, kpp, head_post, head_name,
-			form_name, kind_name, type_name, region_name,
-			federal_district_short_name, federal_district_name
-		) VALUES (
-			$1, $2, $3, $4, $5,
-			$6, $7, $8, $9, $10,
-			$11, $12, $13, $14, $15,
-			$16, $17, $18, $19,
-			$20, $21
-		) ON CONFLICT (id) DO NOTHING;
-`
 	// Подготавливаем запрос один раз — база его распарсит и создаст план выполнения
-	stmt, err := tx.Prepare(insertQuery)
+	stmt, err := tx.Prepare(InsertQuery)
 
 	if err != nil {
 		logger.Fatal("Ошибка при подготовке запроса:", err)
@@ -89,8 +89,8 @@ func Seed() {
 	logger.Info("Обработано сертификатов ", len(data.Certificates))
 	logger.Success("Колличество вставленных организаций в таблицу ", totalSuccess)
 
-	spendedTime := time.Since(start).Truncate(time.Second) // считаем прошедшее время
-
+	// считаем прошедшее время
+	spendedTime := time.Since(start).Truncate(time.Second)
 	logger.Info("Время выполнения: ", spendedTime)
 
 	defer func() {
