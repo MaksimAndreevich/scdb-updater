@@ -7,7 +7,3 @@ require (
 	github.com/lib/pq v1.10.9
 	github.com/vinay03/chalk v1.1.4
 )
-
-replace gitlab.com/scdb/core => ../core
-
-replace gitlab.com/scdb/database => ../database
