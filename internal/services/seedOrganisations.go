@@ -4,7 +4,6 @@ import (
 	"time"
 
 	"github.com/lib/pq"
-	"gitlab.com/scdb/updater/internal/config"
 	"gitlab.com/scdb/updater/internal/database"
 	"gitlab.com/scdb/updater/internal/logger"
 )
@@ -16,7 +15,6 @@ const BatchSize = 1000
 
 func SeedOrganisations() {
 	start := time.Now()
-	config.LoadConfig()
 
 	db, _ := database.Connect()
 
