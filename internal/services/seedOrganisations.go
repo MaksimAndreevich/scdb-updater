@@ -16,14 +16,12 @@ const BatchSize = 1000
 func SeedOrganisations() {
 	start := time.Now()
 
-	db, _ := database.Connect()
-
 	data := GetDataParsedXML()
 
 	// Начинаем транзакцию
 	// Транзакция обеспечивает атомарность операций и лучшую производительность
 	// Все операции будут выполнены как единое целое
-	tx, err := db.Begin()
+	tx, err := database.DB.Begin()
 	if err != nil {
 		logger.Fatal("Ошибка при начале транзакции:", err)
 	}
@@ -91,7 +89,6 @@ func SeedOrganisations() {
 
 	for i, cert := range data.Certificates {
 		org := cert.ActualEducationOrganization
-		isBranch := org.IsBranch == "1"
 
 		logger.Info("Обработка сертификата №", i+1, ":", org.ShortName)
 
@@ -102,8 +99,8 @@ func SeedOrganisations() {
 			org.ID,
 			org.FullName,
 			org.ShortName,
-			org.HeadEduOrgId,
-			isBranch,
+			org.HeadEduOrgID,
+			org.IsBranch,
 			org.PostAddress,
 			org.Phone,
 			org.Fax,
@@ -117,9 +114,10 @@ func SeedOrganisations() {
 			org.FormName,
 			org.KindName,
 			org.TypeName,
-			org.RegionName,
-			org.FederalDistrictShortName,
-			org.FederalDistrictName,
+
+			org.FederalDistrictID,
+			org.RegionID,
+			org.CityID,
 		)
 		if err != nil {
 			logger.Error("Ошибка при добавлении строки в COPY:", err)
@@ -172,10 +170,4 @@ func SeedOrganisations() {
 	spendedTime := time.Since(start).Truncate(time.Second)
 	logger.Info("Время выполнения: ", spendedTime)
 
-	// Закрываем соединение с базой данных
-	defer func() {
-		if err := db.Close(); err != nil {
-			logger.Error("Ошибка при закрытии базы данных:", err)
-		}
-	}()
 }

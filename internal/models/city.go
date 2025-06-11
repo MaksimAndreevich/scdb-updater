@@ -1,29 +1,40 @@
 package models
 
-// City представляет информацию о городе России
+import "time"
+
 type City struct {
-	Address         string  `json:"address"`          // Адрес одной строкой
-	PostalCode      int     `json:"postal_code"`      // Почтовый индекс
-	Country         string  `json:"country"`          // Страна
-	FederalDistrict string  `json:"federal_district"` // Федеральный округ
-	RegionType      string  `json:"region_type"`      // Тип региона
-	Region          string  `json:"region"`           // Регион
-	AreaType        string  `json:"area_type"`        // Тип района
-	Area            string  `json:"area"`             // Район
-	CityType        string  `json:"city_type"`        // Тип города
-	City            string  `json:"city"`             // Город
-	SettlementType  string  `json:"settlement_type"`  // Тип населенного пункта
-	Settlement      string  `json:"settlement"`       // Населенный пункт
-	KladrID         int64   `json:"kladr_id"`         // КЛАДР-код
-	FiasID          string  `json:"fias_id"`          // ФИАС-код
-	FiasLevel       int     `json:"fias_level"`       // Уровень по ФИАС
-	CapitalMarker   int     `json:"capital_marker"`   // Признак центра региона или района
-	Okato           int64   `json:"okato"`            // Код ОКАТО
-	Oktmo           int64   `json:"oktmo"`            // Код ОКТМО
-	TaxOffice       int     `json:"tax_office"`       // Код ИФНС
-	Timezone        string  `json:"timezone"`         // Часовой пояс
-	GeoLat          float64 `json:"geo_lat"`          // Широта
-	GeoLon          float64 `json:"geo_lon"`          // Долгота
-	Population      int     `json:"population"`       // Население
-	FoundationYear  int     `json:"foundation_year"`  // Год основания
+	FiasID              string    `json:"fias_id" db:"fias_id"`
+	Address             string    `json:"address" db:"address"`
+	PostalCode          int       `json:"postal_code" db:"postal_code"`
+	Country             string    `json:"country" db:"country"`
+	RegionName          string    `json:"region" db:"region"`
+	RegionType          string    `json:"region_type" db:"region_type"`
+	AreaType            string    `json:"area_type" db:"area_type"`
+	Area                string    `json:"area" db:"area"`
+	CityType            string    `json:"city_type" db:"city_type"`
+	City                string    `json:"city" db:"city"`
+	SettlementType      string    `json:"settlement_type" db:"settlement_type"`
+	Settlement          string    `json:"settlement" db:"settlement"`
+	KladrID             int       `json:"kladr_id" db:"kladr_id"`
+	FederalDistrictName string    `json:"federal_district" db:"-"`
+	FiasLevel           int       `json:"fias_level" db:"fias_level"`
+	CapitalMarker       int       `json:"capital_marker" db:"capital_marker"`
+	OKATO               int       `json:"okato" db:"okato"`
+	OKTMO               int       `json:"oktmo" db:"oktmo"`
+	TaxOffice           int       `json:"tax_office" db:"tax_office"`
+	Timezone            string    `json:"timezone" db:"timezone"`
+	GeoLat              float64   `json:"geo_lat" db:"geo_lat"`
+	GeoLon              float64   `json:"geo_lon" db:"geo_lon"`
+	Population          int       `json:"population" db:"population"`
+	FoundationYear      int       `json:"foundation_year" db:"foundation_year"`
+	CreatedAt           time.Time `json:"created_at" db:"created_at"`
+	UpdatedAt           time.Time `json:"updated_at" db:"updated_at"`
+
+	RegionID          int `json:"region_id" db:"fk_region_id"`
+	FederalDistrictID int `json:"federal_district_id" db:"fk_federal_district_id"`
+
+	// Связи
+	Region          *Region                 `json:"region,omitempty" db:"-"`
+	FederalDistrict *FederalDistrict        `json:"federal_district,omitempty" db:"-"`
+	Organizations   []EducationOrganization `json:"organizations,omitempty" db:"-"`
 }

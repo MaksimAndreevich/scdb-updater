@@ -42,31 +42,6 @@ type Certificate struct {
 	Decisions                        []Decision            `xml:"Decisions>Decision"`
 }
 
-type EducationOrganization struct {
-	XMLName                  xml.Name `xml:"ActualEducationOrganization"`
-	ID                       string   `xml:"Id"`
-	FullName                 string   `xml:"FullName"`
-	ShortName                string   `xml:"ShortName"`
-	HeadEduOrgId             string   `xml:"HeadEduOrgId"`
-	IsBranch                 string   `xml:"IsBranch"` // 1 - да, 0 - нет
-	PostAddress              string   `xml:"PostAddress"`
-	Phone                    string   `xml:"Phone"`
-	Fax                      string   `xml:"Fax"`
-	Email                    string   `xml:"Email"`
-	WebSite                  string   `xml:"WebSite"`
-	OGRN                     string   `xml:"OGRN"`
-	INN                      string   `xml:"INN"`
-	KPP                      string   `xml:"KPP"`
-	HeadPost                 string   `xml:"HeadPost"`
-	HeadName                 string   `xml:"HeadName"`
-	FormName                 string   `xml:"FormName"`
-	KindName                 string   `xml:"KindName"`
-	TypeName                 string   `xml:"TypeName"`
-	RegionName               string   `xml:"RegionName"`
-	FederalDistrictShortName string   `xml:"FederalDistrictShortName"`
-	FederalDistrictName      string   `xml:"FederalDistrictName"`
-}
-
 type Supplement struct {
 	XMLName                     xml.Name              `xml:"Supplement"`
 	ID                          string                `xml:"Id"`

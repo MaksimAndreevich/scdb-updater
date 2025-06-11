@@ -9,7 +9,9 @@ import (
 	"gitlab.com/scdb/updater/internal/logger"
 )
 
-func Connect() (*sql.DB, error) {
+var DB *sql.DB
+
+func Connect() {
 	// Формируем строку для подключения к pq с оптимизированными параметрами
 	dsn := fmt.Sprintf(
 		"host=%s port=%s user=%s password=%s dbname=%s sslmode=disable "+
@@ -53,7 +55,8 @@ func Connect() (*sql.DB, error) {
 		logger.Fatal(`База данных не отвечает: `, err)
 	}
 
+	DB = db
+
 	logger.Success("Успешное подключение к базе данных!")
 
-	return db, nil
 }
