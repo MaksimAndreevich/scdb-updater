@@ -2981,5 +2981,41 @@
       "oktmo": "71701000001",
       "contentType": "city"
     }
+  },
+  {
+    "name": "Крым",
+    "label": "krym",
+    "type": "Республика",
+    "typeShort": "РК",
+    "contentType": "region",
+    "kladr_id": "9100000000000",
+    "okato": "35000000000",
+    "oktmo": "35700000",
+    "guid": "826fa834-3ee8-404f-bdbc-13a5221cfb71",
+    "code": "91",
+    "iso_3166-2": "RU-YAN",
+    "population": 1902249,
+    "yearFounded": 2014,
+    "area": 27000,
+    "fullname": "Республика Крым",
+    "name_en": "Respublika Krym",
+    "district": "Южный",
+    "namecase": {
+      "nominative": "Республика Крым",
+      "genitive": "Республики Крым",
+      "dative": "Республике Крыму",
+      "accusative": "Республику Крым",
+      "ablative": "Республикой Крымом",
+      "prepositional": "Республике Крыму",
+      "locative": "Республике Крыму"
+    },
+    "capital": {
+      "name": "Симферополь",
+      "label": "simferopol",
+      "kladr_id": "9100000100000",
+      "okato": "35401000000",
+      "oktmo": "35701000001",
+      "contentType": "city"
+    }
   }
 ]

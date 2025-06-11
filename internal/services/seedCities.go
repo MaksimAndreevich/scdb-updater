@@ -3,6 +3,7 @@ package services
 import (
 	"encoding/json"
 	"os"
+	"strings"
 
 	"gitlab.com/scdb/updater/internal/database"
 	"gitlab.com/scdb/updater/internal/logger"
@@ -37,20 +38,19 @@ func SeedCities() {
 
 	QUERY := `
 		INSERT INTO cities (
-			address, postal_code, country, federal_district, region_type,
-			region, area_type, area, city_type, city, settlement_type,
-			settlement, kladr_id, fias_id, fias_level, capital_marker,
+			address, postal_code, country, federal_district_name, region_type,
+			region, area_type, area, city_type, city, kladr_id, fias_id, fias_level, capital_marker,
 			okato, oktmo, tax_office, timezone, geo_lat, geo_lon,
 			population, foundation_year, fk_region_id, fk_federal_district_id
 		) VALUES (
 			$1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13,
-			$14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25, $26
+			$14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24
 		)
 		ON CONFLICT (fias_id) DO NOTHING`
 
 	stmt, err := tx.Prepare(QUERY)
 	if err != nil {
-		logger.Fatal("Ошибка подготовки запроса: %w", err)
+		logger.Fatal("Ошибка подготовки запроса для импорта городов: %w", err)
 	}
 	defer stmt.Close()
 
@@ -65,7 +65,7 @@ func SeedCities() {
 	for rows.Next() {
 		var region models.RegionShortInfo
 
-		err := rows.Scan(&region.ID, &region.FederalDistrictID, &region.Name)
+		err := rows.Scan(&region.ID, &region.Name, &region.FederalDistrictID)
 		if err != nil {
 			logger.Fatal("Ошибка при сканировнии региона во время вставки городов: ", err)
 		}
@@ -78,7 +78,7 @@ func SeedCities() {
 
 	for _, region := range regions {
 		// Берем название региона (Алтайский, Дагестан, Владимирская) как ключ и сохраняем в мапу
-		regionsMap[region.Name] = models.RegionShortInfo{
+		regionsMap[strings.Fields(region.Name)[0]] = models.RegionShortInfo{
 			ID:                region.ID,
 			Name:              region.Name,
 			FederalDistrictID: region.FederalDistrictID,
@@ -89,24 +89,24 @@ func SeedCities() {
 	for i, city := range cities {
 
 		// Получаем ID региона по названию
-		regionInfo, ok := regionsMap[city.RegionName]
+
+		regionName := strings.Fields(city.RegionName)[0] // Берем только первое слово
+		regionInfo, ok := regionsMap[regionName]
 		if !ok {
-			logger.Fatal("Регион не найден для города ", city.City, " (регион: ", city.RegionName, ")")
+			logger.Fatal("Регион не найден для города ", city.CityName, " (регион: ", city.RegionName, ")")
 		}
 
 		_, err = stmt.Exec(
 			city.Address,
 			city.PostalCode,
 			city.Country,
-			city.FederalDistrict,
+			city.FederalDistrictName,
 			city.RegionType,
-			city.Region,
+			city.RegionName,
 			city.AreaType,
 			city.Area,
 			city.CityType,
-			city.City,
-			city.SettlementType,
-			city.Settlement,
+			city.CityName,
 			city.KladrID,
 			city.FiasID,
 			city.FiasLevel,

@@ -12,11 +12,9 @@ type City struct {
 	AreaType            string    `json:"area_type" db:"area_type"`
 	Area                string    `json:"area" db:"area"`
 	CityType            string    `json:"city_type" db:"city_type"`
-	City                string    `json:"city" db:"city"`
-	SettlementType      string    `json:"settlement_type" db:"settlement_type"`
-	Settlement          string    `json:"settlement" db:"settlement"`
+	CityName            string    `json:"city" db:"city"`
 	KladrID             int       `json:"kladr_id" db:"kladr_id"`
-	FederalDistrictName string    `json:"federal_district" db:"-"`
+	FederalDistrictName string    `json:"federal_district_name" db:"federal_district_name"`
 	FiasLevel           int       `json:"fias_level" db:"fias_level"`
 	CapitalMarker       int       `json:"capital_marker" db:"capital_marker"`
 	OKATO               int       `json:"okato" db:"okato"`
@@ -34,7 +32,5 @@ type City struct {
 	FederalDistrictID int `json:"federal_district_id" db:"fk_federal_district_id"`
 
 	// Связи
-	Region          *Region                 `json:"region,omitempty" db:"-"`
-	FederalDistrict *FederalDistrict        `json:"federal_district,omitempty" db:"-"`
-	Organizations   []EducationOrganization `json:"organizations,omitempty" db:"-"`
+	Organizations []EducationOrganization `json:"organizations,omitempty" db:"-"`
 }

@@ -2,6 +2,25 @@ package models
 
 import "time"
 
+type Namecase struct {
+	Nominative    string `json:"nominative" db:"namecase_nominative"`
+	Genitive      string `json:"genitive" db:"namecase_genitive"`
+	Dative        string `json:"dative" db:"namecase_dative"`
+	Accusative    string `json:"accusative" db:"namecase_accusative"`
+	Ablative      string `json:"ablative" db:"namecase_ablative"`
+	Prepositional string `json:"prepositional" db:"namecase_prepositional"`
+	Locative      string `json:"locative" db:"namecase_locative"`
+}
+
+type Capital struct {
+	Name        string `json:"name"`
+	Label       string `json:"label"`
+	KladrID     string `json:"kladr_id"`
+	OKATO       string `json:"okato"`
+	OKTMO       string `json:"oktmo"`
+	ContentType string `json:"contentType"`
+}
+
 type Region struct {
 	ID                  int     `json:"-" db:"id"`
 	Name                string  `json:"name" db:"name"`
@@ -26,28 +45,17 @@ type Region struct {
 	Cities            []City `json:"cities,omitempty" db:"-"`
 
 	// Падежи названия
-	NamecaseNominative    string `json:"namecase.nominative" db:"namecase_nominative"`
-	NamecaseGenitive      string `json:"namecase.genitive" db:"namecase_genitive"`
-	NamecaseDative        string `json:"namecase.dative" db:"namecase_dative"`
-	NamecaseAccusative    string `json:"namecase.accusative" db:"namecase_accusative"`
-	NamecaseAblative      string `json:"namecase.ablative" db:"namecase_ablative"`
-	NamecasePrepositional string `json:"namecase.prepositional" db:"namecase_prepositional"`
-	NamecaseLocative      string `json:"namecase.locative" db:"namecase_locative"`
+	Namecase Namecase `json:"namecase"`
 
 	// Столица региона
-	CapitalName        string `json:"capital.name" db:"capital_name"`
-	CapitalLabel       string `json:"capital.label" db:"capital_label"`
-	CapitalKladrID     string `json:"capital.kladr_id" db:"capital_kladr_id"`
-	CapitalOKATO       string `json:"capital.okato" db:"capital_okato"`
-	CapitalOKTMO       string `json:"capital.oktmo" db:"capital_oktmo"`
-	CapitalContentType string `json:"capital.contentType" db:"capital_content_type"`
+	Capital Capital `json:"capital"`
 
 	CreatedAt time.Time `json:"created_at" db:"created_at"`
 	UpdatedAt time.Time `json:"updated_at" db:"updated_at"`
 }
 
 type RegionShortInfo struct {
-	ID                int    `json:"-" db:"id"`
+	ID                int    `json:"id" db:"id"`
 	Name              string `json:"name" db:"name"`
 	FederalDistrictID int    `json:"federal_district_id" db:"fk_federal_district_id"`
 }
