@@ -54,42 +54,12 @@ func SeedCities() {
 	}
 	defer stmt.Close()
 
-	// Получаем регионы для дальнейшего матчинга с городами
-	rows, err := database.DB.Query("SELECT id, name, fk_federal_district_id FROM regions")
-	if err != nil {
-		logger.Fatal("Ошибка при получении регионов во время вставки городов: ", err)
-	}
-
-	var regions []models.RegionShortInfo
-
-	for rows.Next() {
-		var region models.RegionShortInfo
-
-		err := rows.Scan(&region.ID, &region.Name, &region.FederalDistrictID)
-		if err != nil {
-			logger.Fatal("Ошибка при сканировнии региона во время вставки городов: ", err)
-		}
-
-		regions = append(regions, region)
-	}
-
-	//
-	regionsMap := make(map[string]models.RegionShortInfo)
-
-	for _, region := range regions {
-		// Берем название региона (Алтайский, Дагестан, Владимирская) как ключ и сохраняем в мапу
-		regionsMap[strings.Fields(region.Name)[0]] = models.RegionShortInfo{
-			ID:                region.ID,
-			Name:              region.Name,
-			FederalDistrictID: region.FederalDistrictID,
-		}
-	}
+	regionsMap := database.GetRegionsMap()
 
 	// Вставляем данные
 	for i, city := range cities {
 
 		// Получаем ID региона по названию
-
 		regionName := strings.Fields(city.RegionName)[0] // Берем только первое слово
 		regionInfo, ok := regionsMap[regionName]
 		if !ok {

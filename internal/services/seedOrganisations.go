@@ -6,6 +6,7 @@ import (
 	"github.com/lib/pq"
 	"gitlab.com/scdb/updater/internal/database"
 	"gitlab.com/scdb/updater/internal/logger"
+	"gitlab.com/scdb/updater/internal/utils"
 )
 
 // Размер пакета для вставки данных
@@ -16,14 +17,14 @@ const BatchSize = 1000
 func SeedOrganisations() {
 	start := time.Now()
 
-	data := GetDataParsedXML()
+	data := utils.GetDataParsedXML()
 
 	// Начинаем транзакцию
 	// Транзакция обеспечивает атомарность операций и лучшую производительность
 	// Все операции будут выполнены как единое целое
 	tx, err := database.DB.Begin()
 	if err != nil {
-		logger.Fatal("Ошибка при начале транзакции:", err)
+		logger.Fatal("[SEED ORGANISATIONS] Ошибка при начале транзакции:", err)
 	}
 
 	// Отключаем триггеры перед массовой вставкой
@@ -32,7 +33,7 @@ func SeedOrganisations() {
 	// обновления других таблиц, что замедляет процесс
 	_, err = tx.Exec("ALTER TABLE education_organizations DISABLE TRIGGER ALL;")
 	if err != nil {
-		logger.Fatal("Ошибка при отключении триггеров:", err)
+		logger.Fatal("[SEED ORGANISATIONS] Ошибка при отключении триггеров:", err)
 	}
 
 	// Создаем временную таблицу для COPY
@@ -61,13 +62,14 @@ func SeedOrganisations() {
 			form_name text,
 			kind_name text,
 			type_name text,
-			region_name text,
-			federal_district_short_name text,
-			federal_district_name text
+			fk_city_id text,
+			fk_region_id int,
+			fk_federal_district_id int,
+			fk_education_type_key text
 		) ON COMMIT DROP;
 	`)
 	if err != nil {
-		logger.Fatal("Ошибка при создании временной таблицы:", err)
+		logger.Fatal("[SEED ORGANISATIONS] Ошибка при создании временной таблицы:", err)
 	}
 
 	// Подготавливаем COPY операцию
@@ -80,17 +82,25 @@ func SeedOrganisations() {
 		"id", "full_name", "short_name", "head_edu_org_id", "is_branch",
 		"post_address", "phone", "fax", "email", "web_site",
 		"ogrn", "inn", "kpp", "head_post", "head_name",
-		"form_name", "kind_name", "type_name", "region_name",
-		"federal_district_short_name", "federal_district_name"))
+		"form_name", "kind_name", "type_name",
+		"fk_city_id", "fk_region_id", "fk_federal_district_id", "fk_education_type_key"))
 
 	if err != nil {
-		logger.Fatal("Ошибка при подготовке COPY:", err)
+		logger.Fatal("[SEED ORGANISATIONS] Ошибка при подготовке COPY:", err)
 	}
+
+	// Получаем города и регионы для дальнейшего установки связей (город -> регион -> округ)
+	citiesMap := database.GetCitiesMap()
+	regionsMap := database.GetRegionsMap()
+
+	// Статистика по не найденным городам и регионам
+	noLocationOrganisationsCount := 0
 
 	for i, cert := range data.Certificates {
 		org := cert.ActualEducationOrganization
 
-		logger.Info("Обработка сертификата №", i+1, ":", org.ShortName)
+		// Определяем местоположение
+		cityId, regionId, federalDistrictId, orgType := utils.ProcessOrganization(org, citiesMap, regionsMap, &noLocationOrganisationsCount)
 
 		// Добавляем строку в COPY
 		// Каждый Exec добавляет одну строку в буфер COPY
@@ -114,16 +124,17 @@ func SeedOrganisations() {
 			org.FormName,
 			org.KindName,
 			org.TypeName,
-
-			org.FederalDistrictID,
-			org.RegionID,
-			org.CityID,
+			cityId,
+			regionId,
+			federalDistrictId,
+			orgType,
 		)
 		if err != nil {
-			logger.Error("Ошибка при добавлении строки в COPY:", err)
+			logger.Fatal("[SEED ORGANISATIONS] Ошибка при добавлении строки в COPY:", err)
 			continue
 		}
 
+		logger.Info("[SEED ORGANISATIONS] Обработано сертификатов: ", i+1, " из ", len(data.Certificates))
 	}
 
 	// Завершаем COPY операцию
@@ -131,7 +142,7 @@ func SeedOrganisations() {
 	// В этот момент все накопленные данные отправляются в базу
 	_, err = stmt.Exec()
 	if err != nil {
-		logger.Fatal("Ошибка при завершении COPY:", err)
+		logger.Fatal("[SEED ORGANISATIONS] Ошибка при завершении COPY:", err)
 	}
 	stmt.Close()
 
@@ -145,7 +156,7 @@ func SeedOrganisations() {
 		ON CONFLICT (id) DO NOTHING;
 	`)
 	if err != nil {
-		logger.Fatal("Ошибка при вставке из временной таблицы:", err)
+		logger.Fatal("[SEED ORGANISATIONS] Ошибка при вставке из временной таблицы:", err)
 	}
 
 	// Включаем триггеры обратно
@@ -153,18 +164,19 @@ func SeedOrganisations() {
 	// для обеспечения целостности данных
 	_, err = tx.Exec("ALTER TABLE education_organizations ENABLE TRIGGER ALL;")
 	if err != nil {
-		logger.Fatal("Ошибка при включении триггеров:", err)
+		logger.Fatal("[SEED ORGANISATIONS] Ошибка при включении триггеров:", err)
 	}
 
 	// Коммитим транзакцию
 	// Все изменения становятся видимыми другим транзакциям
 	// Временная таблица автоматически удаляется
 	if err := tx.Commit(); err != nil {
-		logger.Fatal("Ошибка при коммите транзакции:", err)
+		logger.Fatal("[SEED ORGANISATIONS] Ошибка при коммите транзакции:", err)
 	}
 
 	// Выводим статистику выполнения
 	logger.Info("Обработано сертификатов ", len(data.Certificates))
+	logger.Warning("Организации для которых не найден город или регион отнесены к региону 'Другое': ", noLocationOrganisationsCount, " шт.")
 
 	// Выводим общее время выполнения
 	spendedTime := time.Since(start).Truncate(time.Second)

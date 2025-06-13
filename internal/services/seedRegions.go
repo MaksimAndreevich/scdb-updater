@@ -66,6 +66,7 @@ func SeedRegions(districts []models.FederalDistrict) {
 	for i, region := range regions {
 		// Получаем ID федерального округа по первому слову
 		federalDistrictID, ok := districtMap[region.FederalDistrictName]
+
 		if !ok {
 			logger.Fatal("Федеральный округ не найден для региона ", region.Name, " (округ: ", region.FederalDistrictName, ")")
 		}

@@ -12735,7 +12735,7 @@
     "area_type": "",
     "area": "",
     "city_type": "",
-    "city": "",
+    "city": "Москва",
 
     "kladr_id": 7700000000000,
     "fias_id": "0c5b2444-70a0-4932-980c-b4dc0d3f02b5",
@@ -12935,7 +12935,7 @@
     "area_type": "г",
     "area": "Воскресенск",
     "city_type": "",
-    "city": "",
+    "city": "Воскресенск",
 
     "kladr_id": 5004400000000,
     "fias_id": "555e9f1b-627a-4444-b19e-27fb9d67a093",
@@ -13060,7 +13060,7 @@
     "area_type": "г",
     "area": "Дмитров",
     "city_type": "",
-    "city": "",
+    "city": "Дмитров",
 
     "kladr_id": 5004500000000,
     "fias_id": "0d8a246f-6446-403e-91c6-3aec9cdbfc32",
@@ -13310,7 +13310,7 @@
     "area_type": "г",
     "area": "Истра",
     "city_type": "",
-    "city": "",
+    "city": "Истра",
 
     "kladr_id": 5004600000000,
     "fias_id": "f05b2b62-f54c-4b44-aff2-6bc3e55a640c",
@@ -13360,7 +13360,7 @@
     "area_type": "г",
     "area": "Клин",
     "city_type": "",
-    "city": "",
+    "city": "Клин",
 
     "kladr_id": 5004700000000,
     "fias_id": "2365151a-7a78-4af5-a8fb-a4faff856df5",
@@ -13810,7 +13810,7 @@
     "area_type": "г",
     "area": "Наро-Фоминск",
     "city_type": "",
-    "city": "",
+    "city": "Наро-Фоминск",
 
     "kladr_id": 5004800000000,
     "fias_id": "08c78435-6ed8-4d7f-a7ed-3f73e2fa6359",
@@ -13835,7 +13835,7 @@
     "area_type": "г",
     "area": "Ногинск",
     "city_type": "",
-    "city": "",
+    "city": "Ногинск",
 
     "kladr_id": 5004300000000,
     "fias_id": "40ae04e3-9a69-44ea-8bd7-6c6f08e1a4ca",
@@ -13860,7 +13860,7 @@
     "area_type": "г",
     "area": "Одинцово",
     "city_type": "",
-    "city": "",
+    "city": "Одинцово",
 
     "kladr_id": 5004200000000,
     "fias_id": "6ae8ad9e-aa6c-4849-92d8-8e637059c9b0",
@@ -13910,7 +13910,7 @@
     "area_type": "г",
     "area": "Орехово-Зуево",
     "city_type": "",
-    "city": "",
+    "city": "Орехово-Зуево",
 
     "kladr_id": 5000100000000,
     "fias_id": "0f2f2d09-8e7a-4356-bd4d-0b055d802e7b",
@@ -14185,7 +14185,7 @@
     "area_type": "г",
     "area": "Сергиев Посад",
     "city_type": "",
-    "city": "",
+    "city": "Сергиев Посад",
 
     "kladr_id": 5004100000000,
     "fias_id": "7baaac39-aa31-4712-893d-51ef80124a86",
@@ -14460,7 +14460,7 @@
     "area_type": "г",
     "area": "Шатура",
     "city_type": "",
-    "city": "",
+    "city": "Шатура",
 
     "kladr_id": 5004900000000,
     "fias_id": "cd6486b7-fd7a-4da8-b7f3-420d6e16b07b",
@@ -19660,7 +19660,7 @@
     "area_type": "",
     "area": "",
     "city_type": "",
-    "city": "",
+    "city": "Санкт-Петербург",
 
     "kladr_id": 7800000000000,
     "fias_id": "c2deb16a-0330-4f05-821f-1d09c93331e6",
@@ -26785,7 +26785,7 @@
     "area_type": "р-н",
     "area": "Урус-Мартановский",
     "city_type": "",
-    "city": "",
+    "city": "Урус-Мартан",
     "settlement_type": "г",
     "settlement": "Урус-Мартан",
     "kladr_id": 2001000000100,

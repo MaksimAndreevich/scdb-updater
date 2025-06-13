@@ -34,3 +34,10 @@ type City struct {
 	// Связи
 	Organizations []EducationOrganization `json:"organizations,omitempty" db:"-"`
 }
+
+type CityShortInfo struct {
+	CityName          string `json:"city" db:"city"`
+	FiasID            string `json:"fias_id" db:"fias_id"`
+	RegionID          int    `json:"region_id" db:"fk_region_id"`
+	FederalDistrictID int    `json:"federal_district_id" db:"fk_federal_district_id"`
+}

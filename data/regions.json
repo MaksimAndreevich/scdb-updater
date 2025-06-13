@@ -3017,5 +3017,41 @@
       "oktmo": "35701000001",
       "contentType": "city"
     }
+  },
+  {
+    "name": "Другое",
+    "label": "other",
+    "type": "Регион",
+    "typeShort": "Рег",
+    "contentType": "region",
+    "kladr_id": "0",
+    "okato": "0",
+    "oktmo": "0",
+    "guid": "9d8c7b6a-5f4e-3d2c-1b0a-9f8e7d6c5b4a",
+    "code": "0",
+    "iso_3166-2": "0",
+    "population": 0,
+    "yearFounded": 0,
+    "area": 0,
+    "fullname": "Другие регионы",
+    "name_en": "Other regions",
+    "district": "Другое",
+    "namecase": {
+      "nominative": "Другие регионы",
+      "genitive": "Других регионов",
+      "dative": "Другим регионам",
+      "accusative": "Другие регионы",
+      "ablative": "Другими регионами",
+      "prepositional": "Других регионах",
+      "locative": "Других регионах"
+    },
+    "capital": {
+      "name": "",
+      "label": "",
+      "kladr_id": "",
+      "okato": "",
+      "oktmo": "",
+      "contentType": "city"
+    }
   }
 ]
