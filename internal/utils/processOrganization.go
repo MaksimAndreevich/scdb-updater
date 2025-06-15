@@ -21,6 +21,7 @@ func ProcessOrganization(org models.EducationOrganization,
 	}
 
 	if !orgType.Found {
+		// Организация не привязана к типу. Назначаем дефолтный тип 'Другое'
 		*noTypeOrganisationsCount++
 	}
 
