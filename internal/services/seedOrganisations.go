@@ -92,15 +92,17 @@ func SeedOrganisations() {
 	// Получаем города и регионы для дальнейшего установки связей (город -> регион -> округ)
 	citiesMap := database.GetCitiesMap()
 	regionsMap := database.GetRegionsMap()
+	orgTypesMap := database.GetOrgTypesMap()
 
 	// Статистика по не найденным городам и регионам
 	noLocationOrganisationsCount := 0
+	noTypeOrganisationsCount := 0
 
-	for i, cert := range data.Certificates {
+	for _, cert := range data.Certificates {
 		org := cert.ActualEducationOrganization
 
 		// Определяем местоположение
-		cityId, regionId, federalDistrictId, orgType := utils.ProcessOrganization(org, citiesMap, regionsMap, &noLocationOrganisationsCount)
+		cityId, regionId, federalDistrictId, orgType := utils.ProcessOrganization(org, citiesMap, regionsMap, &noLocationOrganisationsCount, orgTypesMap, &noTypeOrganisationsCount)
 
 		// Добавляем строку в COPY
 		// Каждый Exec добавляет одну строку в буфер COPY
@@ -134,7 +136,7 @@ func SeedOrganisations() {
 			continue
 		}
 
-		logger.Info("[SEED ORGANISATIONS] Обработано сертификатов: ", i+1, " из ", len(data.Certificates))
+		// logger.Info("[SEED ORGANISATIONS] Обработано сертификатов: ", i+1, " из ", len(data.Certificates))
 	}
 
 	// Завершаем COPY операцию
@@ -177,7 +179,7 @@ func SeedOrganisations() {
 	// Выводим статистику выполнения
 	logger.Info("Обработано сертификатов ", len(data.Certificates))
 	logger.Warning("Организации для которых не найден город или регион отнесены к региону 'Другое': ", noLocationOrganisationsCount, " шт.")
-
+	logger.Warning("Организации для которых не найден тип отнесены к типу 'Другое': ", noTypeOrganisationsCount, " шт.")
 	// Выводим общее время выполнения
 	spendedTime := time.Since(start).Truncate(time.Second)
 	logger.Info("Время выполнения: ", spendedTime)

@@ -33,31 +33,3 @@ type EducationOrganization struct {
 	FederalDistrictID int    `json:"federal_district_id" db:"fk_federal_district_id" xml:"-"`
 	EducationTypeKey  string `json:"education_type_key" db:"fk_education_type_key" xml:"-"`
 }
-
-// EducationTypeKey — тип для ключа типа образовательного учреждения.
-type EducationTypeKey string
-
-const (
-	// Детский сад
-	EducationTypeKindergarten EducationTypeKey = "kindergarten"
-	// Школа
-	EducationTypeSchool EducationTypeKey = "school"
-	// Гимназия
-	EducationTypeGymnasium EducationTypeKey = "gymnasium"
-	// Лицей
-	EducationTypeLyceum EducationTypeKey = "lyceum"
-	// Школа-интернат
-	EducationTypeBoardingSchool EducationTypeKey = "boarding_school"
-	// Коррекционная школа
-	EducationTypeCorrectionalSchool EducationTypeKey = "correctional_school"
-	// Колледж
-	EducationTypeCollege EducationTypeKey = "college"
-	// Техникум
-	EducationTypeTechnicalSchool EducationTypeKey = "technical_school"
-	// Университет
-	EducationTypeUniversity EducationTypeKey = "university"
-	// Институт
-	EducationTypeInstitute EducationTypeKey = "institute"
-	// Академия
-	EducationTypeAcademy EducationTypeKey = "academy"
-)

@@ -29,6 +29,7 @@ func GetXMLFilePath() string {
 	}
 
 	return filePath
+
 }
 
 func isXMLFile(path string) bool {

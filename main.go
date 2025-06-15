@@ -13,8 +13,8 @@ func main() {
 
 	districts := services.SeedFederalDistricts()
 	services.SeedRegions(districts)
-
 	services.SeedCities()
+	services.SeedOrganisationsTypes()
 	services.SeedOrganisations()
 
 	// Закрываем соединение с базой данных

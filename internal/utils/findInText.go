@@ -4,7 +4,7 @@ import (
 	"strings"
 )
 
-// FindInText ищет ключ из мапы в тексте
+// FindInText ищет ключ из мапы в тексте.
 // Возвращает найденное значение и true, если найдено, или nil и false, если не найдено
 func FindInText[T any](text string, searchMap map[string]T) (T, bool) {
 	text = strings.ToLower(text)
