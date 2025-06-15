@@ -10,8 +10,7 @@ import (
 )
 
 func GetDataParsedXML() models.OpenData {
-	// filePath := GetXMLFilePath()
-	filePath := "/Users/maksimefimov/Work/SCDB/data.xml"
+	filePath := GetXMLFilePath()
 
 	xmlFile, err := os.Open(filePath)
 

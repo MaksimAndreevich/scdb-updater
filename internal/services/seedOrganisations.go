@@ -98,7 +98,7 @@ func SeedOrganisations() {
 	noLocationOrganisationsCount := 0
 	noTypeOrganisationsCount := 0
 
-	for _, cert := range data.Certificates {
+	for i, cert := range data.Certificates {
 		org := cert.ActualEducationOrganization
 
 		// Определяем местоположение
@@ -136,7 +136,7 @@ func SeedOrganisations() {
 			continue
 		}
 
-		// logger.Info("[SEED ORGANISATIONS] Обработано сертификатов: ", i+1, " из ", len(data.Certificates))
+		logger.Info("[SEED ORGANISATIONS] Обработано сертификатов: ", i+1, " из ", len(data.Certificates))
 	}
 
 	// Завершаем COPY операцию
