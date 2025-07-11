@@ -1,10 +1,10 @@
 package main
 
 import (
-	"gitlab.com/scdb/updater/internal/config"
-	"gitlab.com/scdb/updater/internal/database"
-	"gitlab.com/scdb/updater/internal/logger"
-	"gitlab.com/scdb/updater/internal/services"
+	"scdb-updater/internal/config"
+	"scdb-updater/internal/database"
+	"scdb-updater/internal/logger"
+	"scdb-updater/internal/services"
 )
 
 func main() {

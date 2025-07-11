@@ -24,8 +24,8 @@
 1. Клонируйте репозиторий:
 
 ```bash
-git clone [url-репозитория]
-cd updater
+git clone https://github.com/MaksimAndreevich/scdb-updater.git
+cd scdb-updater
 ```
 
 2. Установите зависимости:

@@ -2,8 +2,8 @@ package database
 
 import (
 	"github.com/lib/pq"
-	"gitlab.com/scdb/updater/internal/logger"
-	"gitlab.com/scdb/updater/internal/models"
+	"scdb-updater/internal/logger"
+	"scdb-updater/internal/models"
 )
 
 func GetOrgTypesMap() map[string]models.EducationTypeShortInfo {

@@ -1,6 +1,6 @@
 package utils
 
-import "gitlab.com/scdb/updater/internal/models"
+import "scdb-updater/internal/models"
 
 // LocationMatch представляет результат поиска местоположения
 type LocationMatch struct {

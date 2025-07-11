@@ -6,7 +6,7 @@ import (
 	"strings"
 
 	"github.com/vinay03/chalk"
-	"gitlab.com/scdb/updater/internal/logger"
+	"scdb-updater/internal/logger"
 )
 
 func GetXMLFilePath() string {

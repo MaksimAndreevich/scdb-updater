@@ -5,8 +5,8 @@ import (
 	"fmt"
 
 	_ "github.com/lib/pq"
-	"gitlab.com/scdb/updater/internal/config"
-	"gitlab.com/scdb/updater/internal/logger"
+	"scdb-updater/internal/config"
+	"scdb-updater/internal/logger"
 )
 
 var DB *sql.DB

@@ -5,8 +5,8 @@ import (
 	"io"
 	"os"
 
-	"gitlab.com/scdb/updater/internal/logger"
-	"gitlab.com/scdb/updater/internal/models"
+	"scdb-updater/internal/logger"
+	"scdb-updater/internal/models"
 )
 
 func GetDataParsedXML() models.OpenData {

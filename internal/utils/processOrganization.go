@@ -1,7 +1,7 @@
 package utils
 
 import (
-	"gitlab.com/scdb/updater/internal/models"
+	"scdb-updater/internal/models"
 )
 
 // ProcessOrganization обрабатывает одну организацию

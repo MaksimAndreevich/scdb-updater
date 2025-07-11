@@ -1,8 +1,8 @@
 package database
 
 import (
-	"gitlab.com/scdb/updater/internal/logger"
-	"gitlab.com/scdb/updater/internal/models"
+	"scdb-updater/internal/logger"
+	"scdb-updater/internal/models"
 )
 
 func GetCitiesMap() map[string]models.CityShortInfo {

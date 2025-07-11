@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"os"
 
-	"gitlab.com/scdb/updater/internal/database"
-	"gitlab.com/scdb/updater/internal/logger"
-	"gitlab.com/scdb/updater/internal/models"
+	"scdb-updater/internal/database"
+	"scdb-updater/internal/logger"
+	"scdb-updater/internal/models"
 )
 
 func SeedFederalDistricts() []models.FederalDistrict {

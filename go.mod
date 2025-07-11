@@ -1,4 +1,4 @@
-module gitlab.com/scdb/updater
+module scdb-updater
 
 go 1.24.3
 

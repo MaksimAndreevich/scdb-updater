@@ -3,8 +3,8 @@ package database
 import (
 	"strings"
 
-	"gitlab.com/scdb/updater/internal/logger"
-	"gitlab.com/scdb/updater/internal/models"
+	"scdb-updater/internal/logger"
+	"scdb-updater/internal/models"
 )
 
 func GetRegionsMap() map[string]models.RegionShortInfo {

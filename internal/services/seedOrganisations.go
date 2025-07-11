@@ -4,9 +4,9 @@ import (
 	"time"
 
 	"github.com/lib/pq"
-	"gitlab.com/scdb/updater/internal/database"
-	"gitlab.com/scdb/updater/internal/logger"
-	"gitlab.com/scdb/updater/internal/utils"
+	"scdb-updater/internal/database"
+	"scdb-updater/internal/logger"
+	"scdb-updater/internal/utils"
 )
 
 // Размер пакета для вставки данных

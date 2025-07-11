@@ -3,7 +3,7 @@ package utils
 import (
 	"strings"
 
-	"gitlab.com/scdb/updater/internal/models"
+	"scdb-updater/internal/models"
 )
 
 type OrgTypeMatch struct {
